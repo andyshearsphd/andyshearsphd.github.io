@@ -3,17 +3,101 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Coming soon</title>
+<title>Andy Shears, PhD</title>
+<meta name="description" content="Andy Shears, PhD. Obsolete digital cartographer and graphic designer.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23001400'/><rect x='5' y='3' width='6' height='10' fill='%2333ff33'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <style>
-  body{margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-       background:#0d0618; color:#efe8ff; font-family:system-ui,sans-serif; text-align:center}
-  a{color:#ffd23f}
+  :root{ --g:#33ff33; --g2:#1fbf1f; --dim:#159a15; --bg:#010a01; }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:#000; color:var(--g); font-family:'VT323',monospace; font-size:24px; line-height:1.2;
+    text-shadow:0 0 2px var(--g), 0 0 10px rgba(51,255,51,.45);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  /* the monitor */
+  .crt{
+    position:relative; width:100%; max-width:1000px; padding:44px 48px 40px;
+    background:radial-gradient(ellipse at center, #032103 0%, var(--bg) 75%);
+    border-radius:28px;
+    box-shadow:0 0 0 14px #1b1b17, 0 0 0 16px #2b2b25, 0 30px 80px rgba(0,0,0,.8), inset 0 0 120px rgba(0,0,0,.9);
+    overflow:hidden; animation:flicker 6s infinite;
+  }
+  .crt::before{ /* scanlines */
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:3;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.35) 0 2px, transparent 2px 4px);
+  }
+  .crt::after{ /* glass glare */
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:4;
+    background:radial-gradient(ellipse at 30% 10%, rgba(120,255,120,.06), transparent 50%);
+  }
+  @keyframes flicker{0%,100%{opacity:1}48%{opacity:1}50%{opacity:.96}52%{opacity:1}}
+
+  .boot{color:var(--dim); margin:0 0 22px; font-size:22px}
+  .grid{display:grid; grid-template-columns:260px 1fr; gap:40px; align-items:start}
+  .photo{border:3px solid var(--g2); padding:6px; box-shadow:0 0 18px rgba(51,255,51,.35)}
+  .photo img{display:block; width:100%; height:auto}
+  h1{font-weight:400; font-size:clamp(46px,7vw,76px); margin:0; line-height:.95; letter-spacing:1px}
+  .sub{font-size:28px; margin:10px 0 22px; color:var(--g2)}
+  .blurb{margin:0 0 26px; max-width:560px}
+  .menu{list-style:none; padding:0; margin:0 0 26px}
+  .menu li{margin:0 0 6px}
+  .menu a, .contact{
+    color:var(--g); text-decoration:none; font:inherit; background:none; border:0; padding:2px 6px; margin-left:-6px;
+    cursor:pointer; text-shadow:inherit;
+  }
+  .menu a::before, .contact::before{content:"] "; color:var(--dim)}
+  .menu a:hover, .menu a:focus-visible, .contact:hover, .contact:focus-visible{
+    background:var(--g); color:#011801; text-shadow:none; outline:none;
+  }
+  .menu a:hover::before, .contact:hover::before, .menu a:focus-visible::before, .contact:focus-visible::before{color:#011801}
+  .menu .note{color:var(--dim); font-size:20px}
+  .contact{
+    border:2px solid var(--g); padding:8px 16px; margin:0; font-size:26px;
+    box-shadow:0 0 12px rgba(51,255,51,.3);
+  }
+  .contact::before{content:"> "}
+  .prompt{margin-top:28px; color:var(--g)}
+  .cursor{display:inline-block; width:.55em; height:1em; background:var(--g); vertical-align:-2px; animation:blink 1s steps(1) infinite; box-shadow:0 0 8px var(--g)}
+  @keyframes blink{50%{opacity:0}}
+  @media (max-width:720px){
+    body{padding:10px; font-size:22px; align-items:flex-start}
+    .crt{padding:28px 22px; border-radius:18px; box-shadow:0 0 0 8px #1b1b17, 0 0 0 10px #2b2b25, inset 0 0 80px rgba(0,0,0,.9)}
+    .grid{grid-template-columns:1fr; gap:24px}
+    .photo{max-width:240px}
+    .sub{font-size:24px}
+  }
+  @media (prefers-reduced-motion:reduce){ .crt,.cursor{animation:none} }
 </style>
 </head>
 <body>
-  <main>
-    <h1>Coming soon</h1>
-    <p>In the meantime, visit the <a href="/Arcade/">Purple Hippo Arcade</a>.</p>
-  </main>
+<main class="crt">
+  <p class="boot">APPLE ][ &nbsp;&middot;&nbsp; 48K OK &nbsp;&middot;&nbsp; LOADING SHEARS.HOME...</p>
+  <div class="grid">
+    <div class="photo"><img src="andy.jpg" alt="Portrait of Andy Shears in green screen pixels" width="561" height="701"></div>
+    <div>
+      <h1>Andy Shears, PhD</h1>
+      <p class="sub">Obsolete Digital Cartographer and Graphic Designer</p>
+      <p class="blurb">I'm using this space for playing with, and learning how to use, newer technologies. Expect experiments, games and the occasional map.</p>
+      <ul class="menu">
+        <li><a href="/Arcade/">RUN ARCADE</a> <span class="note">: my vibe-coded games</span></li>
+        <li><a href="https://www.linkedin.com/in/andrewshears" target="_blank" rel="noopener">OPEN LINKEDIN</a></li>
+        <li><a href="Andy-Shears-Resume.pdf" target="_blank">LOAD RESUME.PDF</a></li>
+      </ul>
+      <button class="contact" id="contact" type="button">CONTACT ME</button>
+      <div class="prompt">]<span class="cursor"></span></div>
+    </div>
+  </div>
+</main>
+<script>
+  // The address is assembled only when the button is pressed, so it never appears in the page.
+  document.getElementById('contact').addEventListener('click', function(){
+    var u = ['andy','shears','phd'].join('');
+    var d = ['gmail','com'].join('.');
+    window.location.href = 'mai' + 'lto:' + u + '@' + d + '?subject=' + encodeURIComponent('Hello from your website');
+  });
+</script>
 </body>
 </html>
