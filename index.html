@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Andy Shears Arcade</title>
+<meta name="description" content="Four browser games by Andy Shears: Muncie Hippo: Purple Reign, Muncie Hippo Hole Patrol, Muncie Match and Genesis GP.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%237b3fd0'/><circle cx='5' cy='6' r='1.5' fill='%23fff'/><circle cx='11' cy='6' r='1.5' fill='%23fff'/><rect x='4' y='10' width='8' height='2' fill='%23fff'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0618; --panel:#1a0f2e; --purple:#9b5cf6; --pink:#ff4fa3; --cyan:#3fe0ff;
+    --yellow:#ffd23f; --text:#efe8ff; --dim:#a99cc8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(ellipse at 50% -10%, #3a1670 0%, transparent 60%),
+      linear-gradient(180deg, transparent 60%, #2a0c3e 100%),
+      var(--bg);
+    color:var(--text); font-family:'VT323',monospace; font-size:22px; line-height:1.25;
+    min-height:100vh;
+  }
+  body::after{ /* scanlines */
+    content:""; position:fixed; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:48px 20px 40px}
+  header{text-align:center; margin-bottom:44px}
+  .kicker{font-family:'Press Start 2P'; font-size:11px; letter-spacing:3px; color:var(--cyan)}
+  h1{
+    font-family:'Press Start 2P'; font-size:clamp(28px,6vw,56px); margin:18px 0 14px; line-height:1.15;
+    color:var(--yellow);
+    text-shadow:4px 4px 0 var(--pink), 8px 8px 0 #4a1a7a;
+  }
+  .tag{color:var(--dim); font-size:24px; margin:0}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px}
+  .card{
+    display:flex; flex-direction:column; text-decoration:none; color:inherit;
+    background:var(--panel); border:3px solid #34205a; border-radius:6px; overflow:hidden;
+    box-shadow:6px 6px 0 #000; transition:transform .12s, border-color .12s, box-shadow .12s;
+  }
+  .card:hover,.card:focus-visible{transform:translate(-3px,-3px); box-shadow:9px 9px 0 #000; border-color:var(--accent); outline:none}
+  .shot{aspect-ratio:4/3; position:relative; overflow:hidden; background:#000; image-rendering:pixelated}
+  .shot img{width:100%; height:100%; object-fit:cover; display:block}
+  .body{padding:16px 16px 18px; display:flex; flex-direction:column; flex:1}
+  .card h2{font-family:'Press Start 2P'; font-size:13px; line-height:1.5; margin:0 0 10px; color:var(--accent)}
+  .card p{margin:0 0 14px; color:var(--text); flex:1}
+  .meta{font-size:19px; color:var(--dim); margin-bottom:14px}
+  .play{
+    align-self:flex-start; font-family:'Press Start 2P'; font-size:11px; padding:10px 14px;
+    background:var(--accent); color:#120822; border-radius:3px;
+  }
+  .card:hover .play{animation:blink .6s steps(2) infinite}
+  @keyframes blink{50%{opacity:.55}}
+
+  /* Drawn cover art for games without screenshots */
+  .art{position:absolute; inset:0; display:flex; align-items:center; justify-content:center}
+  .hole{background:linear-gradient(#2b1450 0 55%, #3b3b46 55% 100%)}
+  .hole .sun{position:absolute; width:70px; height:70px; border-radius:50%; background:var(--yellow); top:10%; left:44%; z-index:1; box-shadow:0 0 30px #ffd23f88}
+  .hole .bldg{position:absolute; bottom:45%; background:#1b0d33; width:18%}
+  .hole .road{position:absolute; left:0; right:0; bottom:22%; height:4px; background:repeating-linear-gradient(90deg,var(--yellow) 0 20px,transparent 20px 40px)}
+  .hole .pit{position:absolute; bottom:8%; left:56%; width:70px; height:16px; border-radius:50%; background:#111; box-shadow:inset 0 3px 0 #000}
+  .hippo{position:absolute; bottom:12%; left:18%; width:84px; height:58px; background:var(--purple); border-radius:40px 46px 20px 20px; box-shadow:inset -8px -6px 0 #6a34b8}
+  .hippo::before{content:""; position:absolute; right:-22px; top:6px; width:42px; height:34px; background:#b07dff; border-radius:16px}
+  .hippo::after{content:""; position:absolute; right:6px; top:4px; width:7px; height:7px; background:#fff; border-radius:50%; box-shadow:2px 2px 0 #000 inset}
+  .match{background:#1c4fa0; padding:14px}
+  .match .board{display:grid; grid-template-columns:repeat(6,1fr); gap:5px; width:100%; height:100%}
+  .match .t{border-radius:8px; box-shadow:inset 0 -5px 0 rgba(0,0,0,.25), inset 0 4px 0 rgba(255,255,255,.35)}
+  .race{background:linear-gradient(#ff7b3f 0, #ff4fa3 35%, #3a1670 52%, #222 52%)}
+  .race .track{position:absolute; bottom:0; left:50%; width:0; height:0; transform:translateX(-50%);
+    border-left:150px solid transparent; border-right:150px solid transparent; border-bottom:130px solid #3a3a3a}
+  .race .stripe{position:absolute; bottom:0; left:50%; width:8px; height:46%; transform:translateX(-50%); background:repeating-linear-gradient(0deg,#fff 0 14px,transparent 14px 28px)}
+  .race .car{position:absolute; bottom:10%; left:50%; transform:translateX(-50%); width:66px; height:26px; background:var(--pink); border-radius:6px 6px 3px 3px}
+  .race .car::before,.race .car::after{content:""; position:absolute; bottom:-6px; width:16px; height:14px; background:#000; border-radius:2px}
+  .race .car::before{left:-8px} .race .car::after{right:-8px}
+  .race .gp{position:absolute; top:12%; font-family:'Press Start 2P'; font-size:20px; color:#fff; text-shadow:3px 3px 0 #000}
+
+  footer{text-align:center; margin-top:52px; color:var(--dim); font-size:20px}
+  footer a{color:var(--cyan)}
+  .insert{font-family:'Press Start 2P'; font-size:10px; color:var(--pink); letter-spacing:2px; margin-top:14px; animation:blink 1.2s steps(2) infinite}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">MUNCIE, INDIANA &middot; EST. 2026</div>
+    <h1>SHEARS ARCADE</h1>
+    <p class="tag">Four free browser games by Andy Shears. No downloads, no ads. Just click and play.</p>
+  </header>
+
+  <main class="grid">
+    <a class="card" style="--accent:var(--purple)" href="https://andyshearsphd.github.io/Purple-Reign/">
+      <div class="shot"><img src="https://andyshearsphd.github.io/Purple-Reign/screenshots/title.png" alt="Purple Reign title screen" loading="lazy"></div>
+      <div class="body">
+        <h2>MUNCIE HIPPO: PURPLE REIGN</h2>
+        <p>A Prince of Persia style adventure set in 1997 Muncie. One purple hippo has 60 minutes to stop Ball Corp from leaving town.</p>
+        <div class="meta">12 levels &middot; keyboard or phone</div>
+        <span class="play">PLAY &#9654;</span>
+      </div>
+    </a>
+
+    <a class="card" style="--accent:var(--yellow)" href="https://andyshearsphd.github.io/Muncie-Hippo/">
+      <div class="shot"><div class="art hole">
+        <div class="sun"></div>
+        <div class="bldg" style="left:6%;height:30%"></div><div class="bldg" style="left:30%;height:22%"></div><div class="bldg" style="left:62%;height:36%;width:12%"></div>
+        <div class="road"></div><div class="pit"></div><div class="hippo"></div>
+      </div></div>
+      <div class="body">
+        <h2>MUNCIE HIPPO HOLE PATROL</h2>
+        <p>A Genesis style platformer. Eat Royal Pizza, fill every pothole in Muncie, and take down a boss in each neighborhood.</p>
+        <div class="meta">12 neighborhoods &middot; keyboard or phone</div>
+        <span class="play">PLAY &#9654;</span>
+      </div>
+    </a>
+
+    <a class="card" style="--accent:var(--cyan)" href="https://andyshearsphd.github.io/MuncieMatch/">
+      <div class="shot"><div class="art match"><div class="board" id="board"></div></div></div>
+      <div class="body">
+        <h2>MUNCIE MATCH</h2>
+        <p>A match-3 puzzler hosted by the purple hippo, with tiles from all over Muncie. Classic, timed and moves modes.</p>
+        <div class="meta">Built for phones &middot; swipe to play</div>
+        <span class="play">PLAY &#9654;</span>
+      </div>
+    </a>
+
+    <a class="card" style="--accent:var(--pink)" href="https://andyshearsphd.github.io/Formula-Genesis/">
+      <div class="shot"><div class="art race">
+        <div class="gp">GENESIS GP</div><div class="track"></div><div class="stripe"></div><div class="car"></div>
+      </div></div>
+      <div class="body">
+        <h2>GENESIS GP</h2>
+        <p>A 16-bit formula racing season. Pick your driver and race Silverstone, Spa and Monza, rain and tyre wear included.</p>
+        <div class="meta">Keyboard or phone</div>
+        <span class="play">PLAY &#9654;</span>
+      </div>
+    </a>
+  </main>
+
+  <footer>
+    <div class="insert">INSERT COIN</div>
+    <p>Made by Andy Shears &middot; <a href="https://github.com/andyshearsphd">GitHub</a></p>
+  </footer>
+</div>
+<script>
+  // Fill the Muncie Match cover with random colored tiles
+  const colors=['#9b5cf6','#ff4fa3','#ffd23f','#3fe0ff','#4fd17a','#ff7b3f','#ffffff'];
+  const b=document.getElementById('board');
+  for(let i=0;i<30;i++){const t=document.createElement('div');t.className='t';t.style.background=colors[Math.floor(Math.random()*colors.length)];b.appendChild(t);}
+</script>
+</body>
+</html>
