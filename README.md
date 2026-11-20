@@ -1,6 +1,6 @@
-# Shears Arcade
+# Purple Hippo Arcade
 
-Free browser games by Andy Shears. Live at https://andyshearsphd.github.io/
+A Muncie-related vibe coding playground. Live at https://andyshearsphd.github.io/
 
 - [Muncie Hippo: Purple Reign](https://andyshearsphd.github.io/Purple-Reign/)
 - [Muncie Hippo Hole Patrol](https://andyshearsphd.github.io/Muncie-Hippo/)
