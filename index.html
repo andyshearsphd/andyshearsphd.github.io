@@ -3,116 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Purple Hippo Arcade</title>
-<meta name="description" content="A Muncie-related vibe coding playground: Muncie Hippo: Purple Reign, Muncie Hippo Hole Patrol, Muncie Match and Genesis GP.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%237b3fd0'/><circle cx='5' cy='6' r='1.5' fill='%23fff'/><circle cx='11' cy='6' r='1.5' fill='%23fff'/><rect x='4' y='10' width='8' height='2' fill='%23fff'/></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<title>Coming soon</title>
 <style>
-  :root{
-    --bg:#0d0618; --panel:#1a0f2e; --purple:#9b5cf6; --pink:#ff4fa3; --cyan:#3fe0ff;
-    --yellow:#ffd23f; --text:#efe8ff; --dim:#a99cc8;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0}
-  body{
-    background:
-      radial-gradient(ellipse at 50% -10%, #3a1670 0%, transparent 60%),
-      linear-gradient(180deg, transparent 60%, #2a0c3e 100%),
-      var(--bg);
-    color:var(--text); font-family:'VT323',monospace; font-size:22px; line-height:1.25;
-    min-height:100vh;
-  }
-  body::after{ /* scanlines */
-    content:""; position:fixed; inset:0; pointer-events:none;
-    background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
-  }
-  .wrap{max-width:1080px; margin:0 auto; padding:48px 20px 40px}
-  header{text-align:center; margin-bottom:44px}
-  .kicker{font-family:'Press Start 2P'; font-size:11px; letter-spacing:3px; color:var(--cyan)}
-  h1{
-    font-family:'Press Start 2P'; font-size:clamp(28px,6vw,56px); margin:18px 0 14px; line-height:1.15;
-    color:var(--yellow);
-    text-shadow:4px 4px 0 var(--pink), 8px 8px 0 #4a1a7a;
-  }
-  .tag{color:var(--dim); font-size:24px; margin:0}
-  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px}
-  .card{
-    display:flex; flex-direction:column; text-decoration:none; color:inherit;
-    background:var(--panel); border:3px solid #34205a; border-radius:6px; overflow:hidden;
-    box-shadow:6px 6px 0 #000; transition:transform .12s, border-color .12s, box-shadow .12s;
-  }
-  .card:hover,.card:focus-visible{transform:translate(-3px,-3px); box-shadow:9px 9px 0 #000; border-color:var(--accent); outline:none}
-  .shot{aspect-ratio:16/9; position:relative; overflow:hidden; background:#000;}
-  .shot img{width:100%; height:100%; object-fit:cover; display:block}
-  .body{padding:16px 16px 18px; display:flex; flex-direction:column; flex:1}
-  .card h2{font-family:'Press Start 2P'; font-size:13px; line-height:1.5; margin:0 0 10px; color:var(--accent)}
-  .card p{margin:0 0 14px; color:var(--text); flex:1}
-  .meta{font-size:19px; color:var(--dim); margin-bottom:14px}
-  .play{
-    align-self:flex-start; font-family:'Press Start 2P'; font-size:11px; padding:10px 14px;
-    background:var(--accent); color:#120822; border-radius:3px;
-  }
-  .card:hover .play{animation:blink .6s steps(2) infinite}
-  @keyframes blink{50%{opacity:.55}}
-
-  footer{text-align:center; margin-top:52px; color:var(--dim); font-size:20px}
-  footer a{color:var(--cyan)}
-  .insert{font-family:'Press Start 2P'; font-size:10px; color:var(--pink); letter-spacing:2px; margin-top:14px; animation:blink 1.2s steps(2) infinite}
+  body{margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+       background:#0d0618; color:#efe8ff; font-family:system-ui,sans-serif; text-align:center}
+  a{color:#ffd23f}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>PURPLE HIPPO ARCADE</h1>
-    <p class="tag">A Muncie-related vibe coding playground.</p>
-  </header>
-
-  <main class="grid">
-    <a class="card" style="--accent:var(--purple)" href="https://andyshearsphd.github.io/Purple-Reign/">
-      <div class="shot"><img src="img/purple-reign.jpg" alt="Purple Reign title screen" loading="lazy"></div>
-      <div class="body">
-        <h2>MUNCIE HIPPO: PURPLE REIGN</h2>
-        <p>A Prince of Persia style adventure set in 1997 Muncie. One purple hippo has 60 minutes to stop Ball Corp from leaving town.</p>
-        <div class="meta">12 levels &middot; keyboard or phone</div>
-        <span class="play">PLAY &#9654;</span>
-      </div>
-    </a>
-
-    <a class="card" style="--accent:var(--yellow)" href="https://andyshearsphd.github.io/Muncie-Hippo/">
-      <div class="shot"><img src="img/hole-patrol.jpg" alt="Muncie Hippo Hole Patrol title screen" loading="lazy"></div>
-      <div class="body">
-        <h2>MUNCIE HIPPO HOLE PATROL</h2>
-        <p>A Genesis style platformer. Eat Royal Pizza, fill every pothole in Muncie, and take down a boss in each neighborhood.</p>
-        <div class="meta">12 neighborhoods &middot; keyboard or phone</div>
-        <span class="play">PLAY &#9654;</span>
-      </div>
-    </a>
-
-    <a class="card" style="--accent:var(--cyan)" href="https://andyshearsphd.github.io/MuncieMatch/">
-      <div class="shot"><img src="img/muncie-match.jpg" alt="Muncie Match title screen and game board" loading="lazy"></div>
-      <div class="body">
-        <h2>MUNCIE MATCH</h2>
-        <p>A match-3 puzzler hosted by the purple hippo, with tiles from all over Muncie. Classic, Blitz and Neighborhoods modes.</p>
-        <div class="meta">Built for phones &middot; swipe to play</div>
-        <span class="play">PLAY &#9654;</span>
-      </div>
-    </a>
-
-    <a class="card" style="--accent:var(--pink)" href="https://andyshearsphd.github.io/Formula-Genesis/">
-      <div class="shot"><img src="img/genesis-gp.jpg" alt="Genesis GP race start at Silverstone" loading="lazy"></div>
-      <div class="body">
-        <h2>GENESIS GP</h2>
-        <p>A 16-bit formula racing season. Pick your driver and race Silverstone, Spa and Monza, rain and tyre wear included.</p>
-        <div class="meta">Keyboard or phone</div>
-        <span class="play">PLAY &#9654;</span>
-      </div>
-    </a>
+  <main>
+    <h1>Coming soon</h1>
+    <p>In the meantime, visit the <a href="/Arcade/">Purple Hippo Arcade</a>.</p>
   </main>
-
-  <footer>
-    <div class="insert">INSERT COIN</div>
-  </footer>
-</div>
 </body>
 </html>
